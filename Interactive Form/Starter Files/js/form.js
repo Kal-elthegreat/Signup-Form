@@ -7,12 +7,13 @@ console.log('GameTime')
 const $paymentParagraphs = $('div p');
 $paymentParagraphs.hide();
 
-$('#payment option').on('click',function(){ // <--- selector not correct....how to fix???
-    if( e = $('#payment option').eq(2)){
+$('#payment').on('change',function(){ 
+    if(  $('#payment').val() == $('#payment option').eq(2).val()){
       $paymentParagraphs.eq(0).show(); //show() paypal
-    }
-    if( e = $('#payment option').eq(3)){ 
+      $paymentParagraphs.eq(1).hide(); // hide() bitcoin if it's showing
+    } else if($('#payment').val()==$('#payment option').eq(3).val()){ 
        $paymentParagraphs.eq(1).show(); //show() bitcoin
+       $paymentParagraphs.eq(0).hide() // hide() paypal if it's showing
     }
 })
 
