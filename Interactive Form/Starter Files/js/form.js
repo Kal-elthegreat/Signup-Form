@@ -17,6 +17,7 @@ $('#title').on('change',function(){
 
 /******************** T-Shirt Info **************/
 
+// look into toggle()
 
 $('#design option').eq(0).hide(); // remove select theme option
 $('#color').hide(); // hide color select menu
@@ -55,14 +56,64 @@ $('#design').on('change', function(){
 })
 
 /******************** Activities Info **************/
-
-const $label = $('<label>Total:</label>'); // create total label
+let total = 0
+const $label = $('<label></label>'); // create total label
 $('.activities').append($label) // add to activities
 
 // if certain boxes are checked disable attr must be added to others w/ same time
+        
+        // for( let i = 0; i < $('.activities input').length; i++){
+        //     if($('.activities input').eq(i).prop('checked')){
+        //         console.log(i);
+        //     } else {
+        //         console.log('none')
+        //     }
+        // }
+               
+            
+            
+                
+            
+    //         // disable 9-12pm boxes
+    //         // $('.activities input:even').attr('disabled', true)
+    //         // $('.activities input:odd').attr('disabled', true)
+    //         // $('.activities input').eq(0).attr('disabled', false)
+    //         // $('.activities input').eq(i).attr('disabled', false)
+             
+    //         // disable 1-4pm boxes
+            
+    //          //if($('.activities input').eq(i).prop('checked')){
+    //                       //console.log(i);
+    //         // }
+
 // 1-4pm & 9-12pm
 // total cost
 // display in $label
+$('.activities input').each(function(index){
+    $('.activities input').eq(index).on('change', function(){
+
+    if($('.activities input:odd').prop('checked')){
+        console.log('odds off')
+        $('.activities input:odd').attr('disabled', true)
+        $('.activities input').eq(index).attr('disabled', false)
+    } else if($('.activities input:even').prop('checked')){
+        console.log('evens off')
+        $('.activities input:even').attr('disabled', true)
+        $('.activities input').eq(0).attr('disabled', false)
+        $('.activities input').eq(index).attr('disabled', false)
+    }
+
+        if($('.activities input').eq(index).prop('checked')){ 
+                total = total + 100;
+                $label.text('Total:'+ total);
+            } else {
+                total = total - 100;
+                $label.text('Total:'+ total);
+            }
+    })
+    
+})
+
 
 
 /******************** Payment Info **************/
