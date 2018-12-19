@@ -61,57 +61,48 @@ const $label = $('<label></label>'); // create total label
 $('.activities').append($label) // add to activities
 
 // if certain boxes are checked disable attr must be added to others w/ same time
-        
-        // for( let i = 0; i < $('.activities input').length; i++){
-        //     if($('.activities input').eq(i).prop('checked')){
-        //         console.log(i);
-        //     } else {
-        //         console.log('none')
-        //     }
-        // }
-               
-            
-            
                 
-            
-    //         // disable 9-12pm boxes
-    //         // $('.activities input:even').attr('disabled', true)
-    //         // $('.activities input:odd').attr('disabled', true)
-    //         // $('.activities input').eq(0).attr('disabled', false)
-    //         // $('.activities input').eq(i).attr('disabled', false)
-             
-    //         // disable 1-4pm boxes
-            
-    //          //if($('.activities input').eq(i).prop('checked')){
-    //                       //console.log(i);
-    //         // }
-
-// 1-4pm & 9-12pm
-// total cost
-// display in $label
 $('.activities input').each(function(index){
     $('.activities input').eq(index).on('change', function(){
-
-    if($('.activities input:odd').prop('checked')){
-        console.log('odds off')
-        $('.activities input:odd').attr('disabled', true)
-        $('.activities input').eq(index).attr('disabled', false)
-    } else if($('.activities input:even').prop('checked')){
-        console.log('evens off')
-        $('.activities input:even').attr('disabled', true)
-        $('.activities input').eq(0).attr('disabled', false)
-        $('.activities input').eq(index).attr('disabled', false)
-    }
-
-        if($('.activities input').eq(index).prop('checked')){ 
-                total = total + 100;
-                $label.text('Total:'+ total);
-            } else {
-                total = total - 100;
-                $label.text('Total:'+ total);
-            }
-    })
     
+    if($('.activities input').eq(1).prop('checked')){
+        $('.activities input').eq(3).attr('disabled', true);
+        $('.activities input').eq(5).attr('disabled', true);
+          
+    } else if ($('.activities input').eq(3).prop('checked')){
+        $('.activities input').eq(1).attr('disabled', true);
+        $('.activities input').eq(5).attr('disabled', true);
+
+    } else if($('.activities input').eq(5).prop('checked')){
+        $('.activities input').eq(3).attr('disabled', true);
+        $('.activities input').eq(1).attr('disabled', true);
+
+    } else {
+        $('.activities input:odd').attr('disabled', false)
+
+    }
+    if($('.activities input').eq(2).prop('checked')){
+        $('.activities input').eq(4).attr('disabled', true);
+        $('.activities input').eq(6).attr('disabled', true);
+        
+    } else if ($('.activities input').eq(4).prop('checked')){
+        $('.activities input').eq(2).attr('disabled', true);
+        $('.activities input').eq(6).attr('disabled', true);
+
+    } else if($('.activities input').eq(6).prop('checked')){
+        $('.activities input').eq(2).attr('disabled', true);
+        $('.activities input').eq(4).attr('disabled', true);
+
+    } else {
+        $('.activities input:even').attr('disabled', false)
+
+    }
+    
+    total = total + 100;
+    $label.text('Total:'+ total);
+
+
+    })
 })
 
 
@@ -189,7 +180,6 @@ $('#payment').on('change',function(){
 
 
 
-/* for later use
-const regexName = /^[a-z\s]+/i  (name field regex)
-const regexEmail = /^[^@]+@[^\.]+\.[a-z]+$/i (email field regex)
-  */
+
+//const regexName = /^[a-z\s]+/i  (name field regex)
+//const regexEmail = /^[^@]+@[^\.]+\.[a-z]+$/i (email field regex)
