@@ -63,6 +63,7 @@ $('.activities').append($label) // add to activities
 // if certain boxes are checked disable attr must be added to others w/ same time
                 
 $('.activities input').each(function(index){
+
     $('.activities input').eq(index).on('change', function(){
     
     if($('.activities input').eq(1).prop('checked')){
@@ -126,8 +127,8 @@ $('.activities input').each(function(index){
 
     }
     
-    total = total + 100;
-    $label.text('Total:'+ total);
+    // total = total + 100;
+    // $label.text('Total:'+ total);
 
 
     })
@@ -161,43 +162,93 @@ $('#payment').on('change',function(){
 
 
 /************************ Form Validation *****************/
+
+// create variables
 const userName = document.getElementById('name');
 const userEmail = document.getElementById('mail');
 const userCC = document.getElementById('cc-num');
 const userZip = document.getElementById('zip');
 const userCVV = document.getElementById('cvv');
 
-function isValidName (userName){
-    return /^[A-Za-z]*\s?[A-Za-z]+$/.test($('input#name').val()) // test sname field
-}
+//event listeners to test validation
 
-function isValidEmail (userEmail){
-    return  /^[^@]+@[^\.]+\.[a-z]+$/i.test($('input#mail').val()) // test email field
-}
+// name field
+userName.addEventListener('input', function(event){
 
-function isValidCC (userCC){
-   return /^\d{13,16}$/.test($('input#cc-num').val()) // test cc field
-}
-
-function isValidZip(userZip){
-    return /^\d{5}$/.test($('input#zip').val()) // test zip field
-}
-
-function isValidCVV (userCVV){
-   return /^\d{3}$/.test($('input#cvv').val()) // test cvv field
-}
-
-userName.addEventListener('input',(isValidName)=>{
+    let $nameReg = new RegExp('^[A-Za-z]*\\s?[A-Za-z]+$');
+    const isValidName = $nameReg.test($('input#name').val())
+    if(isValidName){
+        $('input#name').css('color','black')
+        console.log('good');
+    } else {
+        $('input#name').css('color','red')
+        console.log('bad');
+    }
 
 })
 
-userEmail.addEventListener('input',(isValidEmail) => {
+// email field 
+userEmail.addEventListener('input',() => {
+    let $emailReg = new RegExp('^[^@]+@[^\\.]+\\.[a-z]+$');
+    const isValidEmail = $emailReg.test($('input#mail').val())
+    if(isValidEmail){
+        $('input#mail').css('color','black')
+        console.log('good')
+    } else {
+        $('input#mail').css('color','red')
+        console.log('bad')
+    }
     
 })
 
-userCC.addEventListener('input',(isValidCC) =>{
+// cc field
+userCC.addEventListener('input',() =>{
+    let $cardReg = new RegExp('^\\d{13,16}$');
+    const isValidCard = $cardReg.test($('input#cc-num').val())
+    if(isValidCard){
+        $('input#cc-num').css('color','black')
+        console.log('good')
+    } else {
+        $('input#cc-num').css('color','red')
+        console.log('bad')
+    }
+})
+
+//zip field
+userZip.addEventListener('input', () =>{
+    let $zipReg = new RegExp ('^\\d{5}$')
+    const isValidZip = $zipReg.test($('input#zip').val())
+    if(isValidZip){
+        $('input#zip').css('color','black')
+    } else {
+        $('input#zip').css('color','red')
+    }
+})
+
+//cvv field
+userCVV.addEventListener('input', () => {
+    let $cvvReg = new RegExp ('^\\d{3}$')
+    const isValidCVV = $cvvReg.test($('input#cvv').val())
+    if(isValidCVV){
+        $('input#cvv').css('color','black')
+    } else {
+        $('input#cvv').css('color','red')
+    }
 
 })
 
+/*********** Prevent Default **************/
 
-    
+const $button = $('button');
+$button.on('click', function(event){
+    // if($('input:checked').length === 0){
+    //     event.preventDefault();
+    //     $('.activities legend').css('color', 'red')
+    //     alert('Please choose 1 activity.')
+    // }
+    if(isValidCVV === false || isValidCard === false || isValidZip ===false){
+        event.preventDefault()
+        $('fieldset legend').css('color', 'red')
+
+    }
+})
