@@ -173,27 +173,31 @@ const userCVV = document.getElementById('cvv');
 //event listeners to test validation
 
 // name field
+
+let name = false;
 userName.addEventListener('input', function(event){
 
     let $nameReg = new RegExp('^[A-Za-z]*\\s?[A-Za-z]+$');
     const isValidName = $nameReg.test($('input#name').val())
     if(isValidName){
         $('input#name').css('color','black')
-        console.log('good');
+        name = true;
     } else {
         $('input#name').css('color','red')
-        console.log('bad');
+    
     }
 
 })
 
-// email field 
+ // email field 
+
+ let email = false;
 userEmail.addEventListener('input',() => {
     let $emailReg = new RegExp('^[^@]+@[^\\.]+\\.[a-z]+$');
     const isValidEmail = $emailReg.test($('input#mail').val())
     if(isValidEmail){
         $('input#mail').css('color','black')
-        console.log('good')
+        email = true;
     } else {
         $('input#mail').css('color','red')
         console.log('bad')
@@ -202,35 +206,47 @@ userEmail.addEventListener('input',() => {
 })
 
 // cc field
+
+let cc = false;
+
 userCC.addEventListener('input',() =>{
     let $cardReg = new RegExp('^\\d{13,16}$');
     const isValidCard = $cardReg.test($('input#cc-num').val())
     if(isValidCard){
         $('input#cc-num').css('color','black')
-        console.log('good')
+        cc = true
     } else {
         $('input#cc-num').css('color','red')
         console.log('bad')
     }
 })
 
-//zip field
+// //zip field
+let zip = false
+
 userZip.addEventListener('input', () =>{
     let $zipReg = new RegExp ('^\\d{5}$')
     const isValidZip = $zipReg.test($('input#zip').val())
     if(isValidZip){
-        $('input#zip').css('color','black')
+        $('input#zip').css('color','black');
+        zip = true;
     } else {
         $('input#zip').css('color','red')
     }
 })
 
 //cvv field
+
+
+let cvv = false
+
 userCVV.addEventListener('input', () => {
     let $cvvReg = new RegExp ('^\\d{3}$')
     const isValidCVV = $cvvReg.test($('input#cvv').val())
+
     if(isValidCVV){
-        $('input#cvv').css('color','black')
+        $('input#cvv').css('color','black');
+        cvv = true
     } else {
         $('input#cvv').css('color','red')
     }
@@ -241,14 +257,35 @@ userCVV.addEventListener('input', () => {
 
 const $button = $('button');
 $button.on('click', function(event){
-    // if($('input:checked').length === 0){
-    //     event.preventDefault();
-    //     $('.activities legend').css('color', 'red')
-    //     alert('Please choose 1 activity.')
-    // }
-    if(isValidCVV === false || isValidCard === false || isValidZip ===false){
-        event.preventDefault()
-        $('fieldset legend').css('color', 'red')
+    if($('input:checked').length === 0){
+        event.preventDefault();
+        $('.activities legend').css('color', 'red')
+        alert(`Please choose 1 activity.`)
+    }
+    if(name === false){
+        event.preventDefault();
+        $('fieldset legend').first().css('color', 'red');
+        alert(`Please enter a valid name`);
+    }  
+    if (email === false){
+        event.preventDefault();
+        $('fieldset legend').first().css('color', 'red');
+        alert(`Please enter a valid email`);
+    } 
+     if (cc === false){
+        event.preventDefault();
+        $('fieldset legend').last().css('color', 'red');
+        alert(`Card must contain 13-16 digits`);
+    }
+     if (zip === false){
+        event.preventDefault();
+        $('fieldset legend').last().css('color', 'red');
+        alert(`Please enter 5 digit zip`);
+    }
+     if (cvv === false){
+        event.preventDefault();
+        $('fieldset legend').last().css('color', 'red');
+        alert(`Please enter a 3 digit cvv`);
 
     }
 })
