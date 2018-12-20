@@ -56,7 +56,10 @@ $('#design').on('change', function(){
 })
 
 /******************** Activities Info **************/
-let total = 0
+let total1 = 0;
+let total2 = 0;
+let total3 = 0;
+let showTotal = 0;
 const $label = $('<label></label>'); // create total label
 $('.activities').append($label) // add to activities
 
@@ -66,12 +69,16 @@ $('.activities input').each(function(index){
 
     $('.activities input').eq(index).on('change', function(){
     
+    // all buttons 9-12pm
     if($('.activities input').eq(1).prop('checked')){
         $('.activities input').eq(3).attr('disabled', true);
         $('.activities label').eq(3).css('color', 'grey');
 
         $('.activities input').eq(5).attr('disabled', true);
         $('.activities label').eq(5).css('color', 'grey');
+
+        total1 = 100
+        //$label.text('Total:'+ total);
 
           
     } else if ($('.activities input').eq(3).prop('checked')){
@@ -81,6 +88,9 @@ $('.activities input').each(function(index){
         $('.activities input').eq(5).attr('disabled', true);
         $('.activities label').eq(5).css('color', 'grey');
 
+        total1 = 100
+        //$label.text('Total:'+ total);
+
 
     } else if($('.activities input').eq(5).prop('checked')){
         $('.activities input').eq(3).attr('disabled', true);
@@ -89,19 +99,27 @@ $('.activities input').each(function(index){
         $('.activities input').eq(1).attr('disabled', true);
         $('.activities label').eq(1).css('color', 'grey');
 
+        total1 = 100
+        //$label.text('Total:'+ total);
+
 
     } else {
         $('.activities input:odd').attr('disabled', false)
         $('.activities label:odd').css('color', 'black');
+        total1 = 0;
+        //$label.text('Total:'+ total);
 
 
     }
+    // all buttons 1-4pm
     if($('.activities input').eq(2).prop('checked')){
         $('.activities input').eq(4).attr('disabled', true);
         $('.activities label').eq(4).css('color', 'grey');
 
         $('.activities input').eq(6).attr('disabled', true);
         $('.activities label').eq(6).css('color', 'grey');
+
+        total2 = 100;
 
         
     } else if ($('.activities input').eq(4).prop('checked')){
@@ -110,6 +128,7 @@ $('.activities input').each(function(index){
 
         $('.activities input').eq(6).attr('disabled', true);
         $('.activities label').eq(6).css('color', 'grey');
+        total2 = 100;
 
 
     } else if($('.activities input').eq(6).prop('checked')){
@@ -119,16 +138,26 @@ $('.activities input').each(function(index){
         $('.activities input').eq(4).attr('disabled', true);
         $('.activities label').eq(4).css('color', 'grey');
 
+        total2 = 100;
+        
 
     } else {
         $('.activities input:even').attr('disabled', false)
         $('.activities label:even').css('color', 'black');
+        total2 = 0;
 
 
     }
-    
-    // total = total + 100;
-    // $label.text('Total:'+ total);
+    if($('.activities input').eq(0).prop('checked')){
+        total3 = 200;
+        
+    } else {
+        total3 = 0;
+        
+
+    }
+    showTotal = total1 + total2 + total3;
+    $label.text('Total:'+ showTotal);
 
 
     })
