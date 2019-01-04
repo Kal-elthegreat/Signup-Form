@@ -1,4 +1,3 @@
-console.log('test');
 // Variables
 const $jobTitle = $("#userTitle");
 const $otherJobTitle = $("#other-title");
