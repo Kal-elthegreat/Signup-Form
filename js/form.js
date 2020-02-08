@@ -3,57 +3,35 @@ console.log('GameTime')
 /************ Unit 3 *****************/
 
 /******************** Basic Info **************/
-$('fieldset div').eq(0).hide();
+$('fieldset div').first().hide(); // hide "other" on load
 
-//show other role input field
+//show "other" role input field
 $('#title').on('change', () => $('#title').val() === $('#title option').last().val() ?
-    $('fieldset div').eq(0).show() :
-    $('fieldset div').eq(0).hide());
+    $('fieldset div').first().show() :
+    $('fieldset div').first().hide());
 /******************** T-Shirt Info **************/
 
-$('#design option').eq(0).hide(); // remove select theme option
+$('#design option').first().hide(); // remove select theme option
 $('#color').hide(); // hide color select menu
 
-
 $('#design').on('change', function(){
-    const $options = $("#design option").not($("#design option").eq(0));
+    $("#color").show();
+    
+    const $options = $("#design option").not($("#design option").first()); // excludes "select theme" in arr
+    if ($('#design').val() === $options.first().val()){
+        $('#color option').first().attr('selected', true);
 
-    if ($options.first().val)
+        $('#color option').each(function(index, element){
+            index >= 3 ? $(element).hide() : $(element).show();
+        })
+    } else {
+        $('#color option').first().attr('selected', false);
+        $('#color option').eq(3).attr('selected', true);
 
-    $.each($options,function(index,val){
-
-    })
-    // if($('#design').val() === $('#design option').eq(1).val()){ // design puns
-        
-    //     $('#color').show(); // show select menu
-
-    //     $('#color option').eq(0).attr('selected', true);
-    //      for(let i = 0; i < 3; i++){
-    //         $('#color option').eq(i).show(); //show first 3 options
-    //     }
-
-    //     $('#color option').eq(3).attr('selected', false);
-    //      for(let i =3; i < 6; i++){
-    //         $('#color option').eq(i).hide(); // hide last 3 options
-    //      }
-
-    // }
-    // if($('#design').val() == $('#design option').last().val()){ // design heart
-        
-    //     $('#color').show(); // show select menu 
-
-    //     $('#color option').eq(3).attr('selected', true);
-    //      for(let i = 3; i < 6; i++){
-    //         $('#color option').eq(i).show(); // show last 3 options
-    //     }
-
-    //     $('#color option').eq(0).attr('selected', false);
-    //      for(let i = 0; i < 3; i++){
-    //         $('#color option').eq(i).hide();  // hide first 3 options
-    //     }
-     
-    // }
-    console.log($options);
+        $("#color option").each(function(index, element) {
+            index < 3 ? $(element).hide() : $(element).show();
+        });
+    }
 })
 
 /******************** Activities Info **************/
