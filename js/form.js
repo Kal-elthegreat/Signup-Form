@@ -265,35 +265,43 @@ userCVV.addEventListener('input', () => {
 
 const $button = $('button');
 $button.on('click', function(event){
+////// turn into a func that resets styles
+    $('legend').each(function(){
+        $("legend").css({ color: "#184f68" });
+    })
+    $("#name").css({ "border-color": "#5e97b0" });
+    $("#mail").css({ "border-color": "#5e97b0" });
+/////////
+
     if($('input:checked').length === 0){
         event.preventDefault();
-        $('.activities legend').css('color', 'red')
-        alert(`Please choose 1 activity.`)
+        $(".activities legend").css({ "color": "red"});
     }
-    if(name === false){
+    if (!name || !email) {
         event.preventDefault();
-        $('fieldset legend').first().css('color', 'red');
-        alert(`Please enter a valid name`);
+        $("fieldset legend").first().css({"color": "red"});
+        if(!name && !email){
+            $("#name").css({ "border-color": "red" })
+            $("#mail").css({ "border-color": "red" });
+        } else if (!name){
+            $("#name").css({ "border-color": "red" })
+        } else {
+            $("#mail").css({ "border-color": "red" });
+        }
     }  
-    if (email === false){
-        event.preventDefault();
-        $('fieldset legend').first().css('color', 'red');
-        alert(`Please enter a valid email`);
-    } 
-     if (cc === false){
-        event.preventDefault();
-        $('fieldset legend').last().css('color', 'red');
-        alert(`Card must contain 13-16 digits`);
-    }
-     if (zip === false){
-        event.preventDefault();
-        $('fieldset legend').last().css('color', 'red');
-        alert(`Please enter 5 digit zip`);
-    }
-     if (cvv === false){
-        event.preventDefault();
-        $('fieldset legend').last().css('color', 'red');
-        alert(`Please enter a 3 digit cvv`);
+    //  if (cc === false || zip === false || cvv === false){
+    //     event.preventDefault();
+    //     $('fieldset legend').last().css('color', 'red');
+    // }
+    //  if (){
+    //     event.preventDefault();
+    //     $('fieldset legend').last().css('color', 'red');
+    //     alert(`Please enter 5 digit zip`);
+    // }
+    //  if (){
+    //     event.preventDefault();
+    //     $('fieldset legend').last().css('color', 'red');
+    //     alert(`Please enter a 3 digit cvv`);
 
-    }
+    // }
 })
