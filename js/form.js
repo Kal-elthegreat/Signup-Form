@@ -154,16 +154,27 @@ $('#payment option').eq(1).attr('selected',true); // auto select CC option
 
 $('#payment').on('change',function(){ 
 
-    if(  $('#payment').val() == $('#payment option').eq(2).val()){
-      $paymentParagraphs.eq(0).show(); //show() paypal
-      $paymentParagraphs.eq(1).hide(); // hide() bitcoin if it's showing
+    if(  $('#payment').val() === $('#payment option').eq(2).val()){
+        $paymentParagraphs.eq(0).show(); //show() paypal
+        $paymentParagraphs.eq(1).hide(); // hide() bitcoin if it's showing
+        $('#payment option').eq(2).attr('selected',true);
+        $('#payment option').eq(1).attr('selected',false);
+        $('#payment option').eq(3).attr('selected',false);
+
+      
       $('#credit-card').hide(); // hide() cc fields 
     } else if($('#payment').val()==$('#payment option').eq(3).val()){ 
-       $paymentParagraphs.eq(1).show(); //show() bitcoin
-       $paymentParagraphs.eq(0).hide() // hide() paypal if it's showing
-       $('#credit-card').hide(); // hide() cc fields 
+        $paymentParagraphs.eq(1).show(); //show() bitcoin
+        $paymentParagraphs.eq(0).hide() // hide() paypal if it's showing
+        $('#credit-card').hide(); // hide() cc fields 
+        $('#payment option').eq(2).attr('selected',false);
+        $('#payment option').eq(1).attr('selected',false);
+        $('#payment option').eq(3).attr('selected',true);
     } else {
         $('#credit-card').show(); // show() cc fields 
+        $('#payment option').eq(2).attr('selected',false);
+        $('#payment option').eq(1).attr('selected',true);
+        $('#payment option').eq(3).attr('selected',false);
     }
 })
 
@@ -265,13 +276,7 @@ userCVV.addEventListener('input', () => {
 
 const $button = $('button');
 $button.on('click', function(event){
-////// turn into a func that resets styles
-    $('legend').each(function(){
-        $("legend").css({ color: "#184f68" });
-    })
-    $("#name").css({ "border-color": "#5e97b0" });
-    $("#mail").css({ "border-color": "#5e97b0" });
-/////////
+    resetStyles();
 
     if($('input:checked').length === 0){
         event.preventDefault();
@@ -288,20 +293,31 @@ $button.on('click', function(event){
         } else {
             $("#mail").css({ "border-color": "red" });
         }
-    }  
-    //  if (cc === false || zip === false || cvv === false){
-    //     event.preventDefault();
-    //     $('fieldset legend').last().css('color', 'red');
-    // }
-    //  if (){
-    //     event.preventDefault();
-    //     $('fieldset legend').last().css('color', 'red');
-    //     alert(`Please enter 5 digit zip`);
-    // }
-    //  if (){
-    //     event.preventDefault();
-    //     $('fieldset legend').last().css('color', 'red');
-    //     alert(`Please enter a 3 digit cvv`);
-
-    // }
+    }
+    if($('#payment option:selected').val() === 'credit card'){
+        if (!cc || !zip || !cvv){
+            event.preventDefault();
+            $('fieldset legend').last().css('color', 'red');
+            if (!cc){
+                $("#cc-num").css({ "border-color": "red" });
+            }
+            if (!zip){
+                $("#zip").css({ "border-color": "red" });
+            }
+            if (!cvv){
+                $("#cvv").css({ "border-color": "red" });
+            }
+        }
+    }    
 })
+
+resetStyles = () => {
+    $("legend").each(function() {
+      $("legend").css({ color: "#184f68" });
+    });
+    $("#name").css({ "border-color": "#5e97b0" });
+    $("#mail").css({ "border-color": "#5e97b0" });
+    $("#cc-num").css({ "border-color": "#5e97b0" });
+    $("#zip").css({ "border-color": "#5e97b0" });
+    $("#cvv").css({ "border-color": "#5e97b0" });
+}
