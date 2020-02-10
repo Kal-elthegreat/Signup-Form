@@ -6,11 +6,11 @@ console.log('GameTime')
 $('fieldset div').first().hide(); // hide "other" on load
 
 //show "other" role input field
-$('#title').on('change', () => $('#title').val() === $('#title option').last().val() ?
+$('#title').on('change', () => { $('#title').val() === $('#title option').last().val() ?
     $('fieldset div').first().show() :
-    $('fieldset div').first().hide());
+    $('fieldset div').first().hide()
+});
 /******************** T-Shirt Info **************/
-
 $('#design option').first().hide(); // remove select theme option
 $('#color').hide(); // hide color select menu
 
@@ -45,101 +45,124 @@ $('.activities').append($label) // add to activities
 // if certain boxes are checked disable attr must be added to others w/ same time
                 
 $('.activities input').each(function(index){
+    $('.activities input').eq(index).on('change', function(){
+        let $selectedInput = $(".activities input").eq(index);
+        
+        if ($selectedInput.attr("name") === "js-frameworks" && $selectedInput.prop('checked')) {
+            $(".activities label").eq(3).toggleClass("disabled");
+            $(".activities input").eq(3).attr("disabled", true);
+            total1 = 100;
+            $label.text("Total:" + total1);
+        } else if ($selectedInput.attr("name") === "express" && $selectedInput.prop('checked')) {
+            $(".activities label").eq(1).toggleClass("disabled");
+            $(".activities input").eq(1).attr("disabled", true);
+            total1 = 100;
+            $label.text("Total:" + total1);
+        } else if ($selectedInput.attr("name") === "express" && !$selectedInput.prop('checked') || $selectedInput.attr("name") === "js-frameworks" && !$selectedInput.prop('checked')) {
+            
+            $(".activities label").eq(1).removeClass("disabled");
+            $(".activities input").eq(1).attr("disabled", false);
 
-    $('.activities input').eq(index).on('change', function(index){
-    
-    // all buttons 9-12pm
-    if($('.activities input').eq(1).prop('checked')){
-        $('.activities input').eq(3).attr('disabled', true);
-        $('.activities label').eq(3).css('color', 'grey');
+            $(".activities label").eq(3).removeClass("disabled");
+            $(".activities input").eq(3).attr("disabled", false);
 
-        $('.activities input').eq(5).attr('disabled', true);
-        $('.activities label').eq(5).css('color', 'grey');
+            total1 = 0
+            $label.text("Total:" + total1);
+        }     
+    })
+    //     console.log($('.activities label').eq(index).val());
+    // // all buttons 9-12pm
+    // if($('.activities input').eq(1).prop('checked')){
+    //     $('.activities input').eq(3).attr('disabled', true);
+    //     $('.activities label').eq(3).css('color', 'grey');
 
-        total1 = 100
+    //     $('.activities input').eq(5).attr('disabled', true);
+    //     $('.activities label').eq(5).css('color', 'grey');
+
+    //     total1 = 100
         //$label.text('Total:'+ total);
 
           
-    } else if ($('.activities input').eq(3).prop('checked')){
-        $('.activities input').eq(1).attr('disabled', true);
-        $('.activities label').eq(1).css('color', 'grey');
+    // } else if ($('.activities input').eq(3).prop('checked')){
+    //     $('.activities input').eq(1).attr('disabled', true);
+    //     $('.activities label').eq(1).css('color', 'grey');
 
-        $('.activities input').eq(5).attr('disabled', true);
-        $('.activities label').eq(5).css('color', 'grey');
+    //     $('.activities input').eq(5).attr('disabled', true);
+    //     $('.activities label').eq(5).css('color', 'grey');
 
-        total1 = 100
-        //$label.text('Total:'+ total);
-
-
-    } else if($('.activities input').eq(5).prop('checked')){
-        $('.activities input').eq(3).attr('disabled', true);
-        $('.activities label').eq(3).css('color', 'grey');
-
-        $('.activities input').eq(1).attr('disabled', true);
-        $('.activities label').eq(1).css('color', 'grey');
-
-        total1 = 100
-        //$label.text('Total:'+ total);
+    //     total1 = 100
+    //     //$label.text('Total:'+ total);
 
 
-    } else {
-        $('.activities input:odd').attr('disabled', false)
-        $('.activities label:odd').css('color', 'black');
-        total1 = 0;
-        //$label.text('Total:'+ total);
+    // } else if($('.activities input').eq(5).prop('checked')){
+    //     $('.activities input').eq(3).attr('disabled', true);
+    //     $('.activities label').eq(3).css('color', 'grey');
+
+    //     $('.activities input').eq(1).attr('disabled', true);
+    //     $('.activities label').eq(1).css('color', 'grey');
+
+    //     total1 = 100
+    //     //$label.text('Total:'+ total);
 
 
-    }
-    // all buttons 1-4pm
-    if($('.activities input').eq(2).prop('checked')){
-        $('.activities input').eq(4).attr('disabled', true);
-        $('.activities label').eq(4).css('color', 'grey');
+    // } else {
+    //     $('.activities input:odd').attr('disabled', false)
+    //     $('.activities label:odd').css('color', 'black');
+    //     total1 = 0;
+    //     //$label.text('Total:'+ total);
 
-        $('.activities input').eq(6).attr('disabled', true);
-        $('.activities label').eq(6).css('color', 'grey');
 
-        total2 = 100;
+    // }
+    // // all buttons 1-4pm
+    // if($('.activities input').eq(2).prop('checked')){
+    //     $('.activities input').eq(4).attr('disabled', true);
+    //     $('.activities label').eq(4).css('color', 'grey');
+
+    //     $('.activities input').eq(6).attr('disabled', true);
+    //     $('.activities label').eq(6).css('color', 'grey');
+
+    //     total2 = 100;
 
         
-    } else if ($('.activities input').eq(4).prop('checked')){
-        $('.activities input').eq(2).attr('disabled', true);
-        $('.activities label').eq(2).css('color', 'grey');
+    // } else if ($('.activities input').eq(4).prop('checked')){
+    //     $('.activities input').eq(2).attr('disabled', true);
+    //     $('.activities label').eq(2).css('color', 'grey');
 
-        $('.activities input').eq(6).attr('disabled', true);
-        $('.activities label').eq(6).css('color', 'grey');
-        total2 = 100;
+    //     $('.activities input').eq(6).attr('disabled', true);
+    //     $('.activities label').eq(6).css('color', 'grey');
+    //     total2 = 100;
 
 
-    } else if($('.activities input').eq(6).prop('checked')){
-        $('.activities input').eq(2).attr('disabled', true);
-        $('.activities label').eq(2).css('color', 'grey');
+    // } else if($('.activities input').eq(6).prop('checked')){
+    //     $('.activities input').eq(2).attr('disabled', true);
+    //     $('.activities label').eq(2).css('color', 'grey');
 
-        $('.activities input').eq(4).attr('disabled', true);
-        $('.activities label').eq(4).css('color', 'grey');
+    //     $('.activities input').eq(4).attr('disabled', true);
+    //     $('.activities label').eq(4).css('color', 'grey');
 
-        total2 = 100;
+    //     total2 = 100;
         
 
-    } else {
-        $('.activities input:even').attr('disabled', false)
-        $('.activities label:even').css('color', 'black');
-        total2 = 0;
+    // } else {
+    //     $('.activities input:even').attr('disabled', false)
+    //     $('.activities label:even').css('color', 'black');
+    //     total2 = 0;
 
 
-    }
-    if($('.activities input').eq(0).prop('checked')){
-        total3 = 200;
+    // }
+    // if($('.activities input').eq(0).prop('checked')){
+    //     total3 = 200;
         
-    } else {
-        total3 = 0;
+    // } else {
+    //     total3 = 0;
         
 
-    }
-    showTotal = total1 + total2 + total3;
-    $label.text('Total:'+ showTotal);
+    // }
+    // showTotal = total1 + total2 + total3;
+    // $label.text('Total:'+ showTotal);
 
 
-    })
+    // })
 })
 
 
