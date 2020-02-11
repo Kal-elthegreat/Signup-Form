@@ -35,29 +35,34 @@ $('#design').on('change', function(){
 })
 
 /******************** Activities Info **************/
-let total1 = 0;
-let total2 = 0;
-let total3 = 0;
-let showTotal = 0;
+let total = 0;
 const $label = $('<label></label>'); // create total label
 $('.activities').append($label) // add to activities
 
-// if certain boxes are checked disable attr must be added to others w/ same time
+// if certain boxes are checked disable attr must be added to others @ same time
                 
 $('.activities input').each(function(index){
     $('.activities input').eq(index).on('change', function(){
         let $selectedInput = $(".activities input").eq(index);
+
+        if ($selectedInput.attr("name") === "all" && $selectedInput.prop('checked')) {
+            total += 200;
+        } else if ($selectedInput.attr("name") === "all" && !$selectedInput.prop('checked')) {
+            total -= 200;
+        }
         
         if ($selectedInput.attr("name") === "js-frameworks" && $selectedInput.prop('checked')) {
             $(".activities label").eq(3).toggleClass("disabled");
             $(".activities input").eq(3).attr("disabled", true);
-            total1 = 100;
-            $label.text("Total:" + total1);
+            total += 100;
+            $label.text("Total:" + total);
+
         } else if ($selectedInput.attr("name") === "express" && $selectedInput.prop('checked')) {
+
             $(".activities label").eq(1).toggleClass("disabled");
             $(".activities input").eq(1).attr("disabled", true);
-            total1 = 100;
-            $label.text("Total:" + total1);
+            total += 100;
+            $label.text("Total:" + total);
         } else if ($selectedInput.attr("name") === "express" && !$selectedInput.prop('checked') || $selectedInput.attr("name") === "js-frameworks" && !$selectedInput.prop('checked')) {
             
             $(".activities label").eq(1).removeClass("disabled");
@@ -66,106 +71,43 @@ $('.activities input').each(function(index){
             $(".activities label").eq(3).removeClass("disabled");
             $(".activities input").eq(3).attr("disabled", false);
 
-            total1 = 0
-            $label.text("Total:" + total1);
+            total -= 100
+            $label.text("Total:" + total);
         }     
-    })
-    //     console.log($('.activities label').eq(index).val());
-    // // all buttons 9-12pm
-    // if($('.activities input').eq(1).prop('checked')){
-    //     $('.activities input').eq(3).attr('disabled', true);
-    //     $('.activities label').eq(3).css('color', 'grey');
 
-    //     $('.activities input').eq(5).attr('disabled', true);
-    //     $('.activities label').eq(5).css('color', 'grey');
+        if ($selectedInput.attr("name") === "js-libs" && $selectedInput.prop('checked')) {
+            $(".activities label").eq(4).toggleClass("disabled");
+            $(".activities input").eq(4).attr("disabled", true);
+            total += 100;
+            $label.text("Total:" + total);
 
-    //     total1 = 100
-        //$label.text('Total:'+ total);
+        } else if ($selectedInput.attr("name") === "node" && $selectedInput.prop('checked')) {
 
-          
-    // } else if ($('.activities input').eq(3).prop('checked')){
-    //     $('.activities input').eq(1).attr('disabled', true);
-    //     $('.activities label').eq(1).css('color', 'grey');
+            $(".activities label").eq(2).toggleClass("disabled");
+            $(".activities input").eq(2).attr("disabled", true);
+            total += 100;
+            $label.text("Total:" + total);
+        } else if ($selectedInput.attr("name") === "js-libs" && !$selectedInput.prop('checked') || $selectedInput.attr("name") === "node" && !$selectedInput.prop('checked')) {
 
-    //     $('.activities input').eq(5).attr('disabled', true);
-    //     $('.activities label').eq(5).css('color', 'grey');
+            $(".activities label").eq(2).removeClass("disabled");
+            $(".activities input").eq(2).attr("disabled", false);
 
-    //     total1 = 100
-    //     //$label.text('Total:'+ total);
+            $(".activities label").eq(4).removeClass("disabled");
+            $(".activities input").eq(4).attr("disabled", false);
 
+            total -= 100
+            $label.text("Total:" + total);
+        }
 
-    // } else if($('.activities input').eq(5).prop('checked')){
-    //     $('.activities input').eq(3).attr('disabled', true);
-    //     $('.activities label').eq(3).css('color', 'grey');
+        if ($selectedInput.attr("name") === ("build-tools") && $selectedInput.prop('checked') || $selectedInput.attr("name") ===("npm") && $selectedInput.prop('checked')) {
+            total += 100;
+        } else if ($selectedInput.attr("name") === ("build-tools") && !$selectedInput.prop('checked') || $selectedInput.attr("name") === ("npm") && !$selectedInput.prop('checked')) {
+            total -= 100;
+        }
 
-    //     $('.activities input').eq(1).attr('disabled', true);
-    //     $('.activities label').eq(1).css('color', 'grey');
-
-    //     total1 = 100
-    //     //$label.text('Total:'+ total);
-
-
-    // } else {
-    //     $('.activities input:odd').attr('disabled', false)
-    //     $('.activities label:odd').css('color', 'black');
-    //     total1 = 0;
-    //     //$label.text('Total:'+ total);
-
-
-    // }
-    // // all buttons 1-4pm
-    // if($('.activities input').eq(2).prop('checked')){
-    //     $('.activities input').eq(4).attr('disabled', true);
-    //     $('.activities label').eq(4).css('color', 'grey');
-
-    //     $('.activities input').eq(6).attr('disabled', true);
-    //     $('.activities label').eq(6).css('color', 'grey');
-
-    //     total2 = 100;
-
-        
-    // } else if ($('.activities input').eq(4).prop('checked')){
-    //     $('.activities input').eq(2).attr('disabled', true);
-    //     $('.activities label').eq(2).css('color', 'grey');
-
-    //     $('.activities input').eq(6).attr('disabled', true);
-    //     $('.activities label').eq(6).css('color', 'grey');
-    //     total2 = 100;
-
-
-    // } else if($('.activities input').eq(6).prop('checked')){
-    //     $('.activities input').eq(2).attr('disabled', true);
-    //     $('.activities label').eq(2).css('color', 'grey');
-
-    //     $('.activities input').eq(4).attr('disabled', true);
-    //     $('.activities label').eq(4).css('color', 'grey');
-
-    //     total2 = 100;
-        
-
-    // } else {
-    //     $('.activities input:even').attr('disabled', false)
-    //     $('.activities label:even').css('color', 'black');
-    //     total2 = 0;
-
-
-    // }
-    // if($('.activities input').eq(0).prop('checked')){
-    //     total3 = 200;
-        
-    // } else {
-    //     total3 = 0;
-        
-
-    // }
-    // showTotal = total1 + total2 + total3;
-    // $label.text('Total:'+ showTotal);
-
-
-    // })
-})
-
-
+        $label.text('Total:' + total);
+    });
+});
 
 /******************** Payment Info **************/
 
