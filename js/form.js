@@ -20,16 +20,17 @@ $('#design').on('change', function(){
     const $options = $("#design option").not($("#design option").first()); // excludes "select theme" in arr
     if ($('#design').val() === $options.first().val()){
         $('#color option').first().attr('selected', true);
+        $('#color option').eq(3).attr('selected', false);
 
         $('#color option').each(function(index, element){
-            index >= 3 ? $(element).hide() : $(element).show();
+            index <= 2 ? $(element).show() : $(element).hide();
         })
     } else {
         $('#color option').first().attr('selected', false);
         $('#color option').eq(3).attr('selected', true);
 
         $("#color option").each(function(index, element) {
-            index < 3 ? $(element).hide() : $(element).show();
+            index >= 3 ? $(element).show() : $(element).hide();
         });
     }
 })
