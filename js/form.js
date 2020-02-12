@@ -120,31 +120,32 @@ $('#payment option').eq(1).attr('selected',true); // auto select CC option
 
 $('#payment').on('change',function(){ 
 
-    if(  $('#payment').val() === $('#payment option').eq(2).val()){
+    if ($('#payment').val() === 'paypal'){
         $paymentParagraphs.eq(0).show(); //show() paypal
         $paymentParagraphs.eq(1).hide(); // hide() bitcoin if it's showing
-        $('#payment option').eq(2).attr('selected',true);
-        $('#payment option').eq(1).attr('selected',false);
-        $('#payment option').eq(3).attr('selected',false);
-
-      
-      $('#credit-card').hide(); // hide() cc fields 
-    } else if($('#payment').val()==$('#payment option').eq(3).val()){ 
+        $('#credit-card').hide(); 
+        
+       assignAttr($('#payment option'),2);
+    } else if ($('#payment').val() === 'bitcoin'){ 
         $paymentParagraphs.eq(1).show(); //show() bitcoin
         $paymentParagraphs.eq(0).hide() // hide() paypal if it's showing
-        $('#credit-card').hide(); // hide() cc fields 
-        $('#payment option').eq(2).attr('selected',false);
-        $('#payment option').eq(1).attr('selected',false);
-        $('#payment option').eq(3).attr('selected',true);
+        $('#credit-card').hide(); 
+
+        assignAttr($('payment option'), 3);
     } else {
-        $('#credit-card').show(); // show() cc fields 
-        $('#payment option').eq(2).attr('selected',false);
-        $('#payment option').eq(1).attr('selected',true);
-        $('#payment option').eq(3).attr('selected',false);
+        $('#credit-card').show();  
+        $paymentParagraphs.eq(0).hide(); //hide() paypal
+        $paymentParagraphs.eq(1).hide(); //hide() bitcoin
+
+        assignAttr($('payment option'),1);
     }
 })
 
-
+assignAttr = (arr,num) => {
+    $(arr).each(function (index, element) {
+        index === num ? $(element).attr('selected', true) : $(element).attr('selected', false)
+    })
+}
 
 /************************ Form Validation *****************/
 
