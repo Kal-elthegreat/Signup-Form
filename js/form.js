@@ -157,11 +157,10 @@ const userZip = document.getElementById('zip');
 const userCVV = document.getElementById('cvv');
 
 //event listeners to test validation
-
 // name field
-
 let name = false;
-userName.addEventListener('input', function(event){
+
+userName.addEventListener('input', () => {
 
     let $nameReg = new RegExp('^[A-Za-z]*\\s?[A-Za-z]+$');
     const isValidName = $nameReg.test($('input#name').val())
@@ -176,8 +175,8 @@ userName.addEventListener('input', function(event){
 })
 
  // email field 
-
  let email = false;
+
 userEmail.addEventListener('input',() => {
     let $emailReg = new RegExp('^[^@]+@[^\\.]+\\.[a-z]+$');
     const isValidEmail = $emailReg.test($('input#mail').val())
@@ -192,7 +191,6 @@ userEmail.addEventListener('input',() => {
 })
 
 // cc field
-
 let cc = false;
 
 userCC.addEventListener('input',() =>{
@@ -222,8 +220,6 @@ userZip.addEventListener('input', () =>{
 })
 
 //cvv field
-
-
 let cvv = false
 
 userCVV.addEventListener('input', () => {
